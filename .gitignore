@@ -1,0 +1,7 @@
+bin/
+obj/
+tmp/
+*.obj
+*.pdb
+.vscode/sha256sum.log
+temporary.csproj

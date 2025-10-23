@@ -1,0 +1,59 @@
+{
+	"configurations": [
+		{
+			"name": "Intelligent Debug for Linux",
+			"preLaunchTask": "Intelligent Compilation",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/bin/${fileBasenameNoExtension}.run",
+			"args": [],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}/tmp/",
+			"environment": [],
+			"MIMode": "gdb",
+			"setupCommands": [
+				{
+					"description": "为 gdb 启用整齐打印",
+					"text": "-enable-pretty-printing",
+					"ignoreFailures": true
+				}
+			]
+		},
+		{
+			"name": "C (mingw64 on Windows)",
+			"preLaunchTask": "C Compilation (mingw64 on Windows)",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/bin/${fileBasenameNoExtension}.exe",
+			"args": [],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}/tmp/",
+			"environment": [],
+			"MIMode": "gdb"
+		},
+		{
+			"name": "C++ (mingw64 on Windows)",
+			"preLaunchTask": "C++ Compilation (mingw64 on Windows)",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/bin/${fileBasenameNoExtension}.exe",
+			"args": [],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}/tmp/",
+			"environment": [],
+			"MIMode": "gdb"
+		},
+		{
+			"name": "C++ (MSVC on Windows)",
+			"preLaunchTask": "C++ Compilation (MSVC on Windows)",
+			"type": "cppvsdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/bin/${fileBasenameNoExtension}.exe",
+			"args": [],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}/tmp/",
+			"environment": [],
+			"console": "integratedTerminal"
+		}
+	]
+}

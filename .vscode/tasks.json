@@ -1,0 +1,75 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "C Compilation (mingw64 on Windows)",
+			"type": "shell",
+			"command": "gcc.exe",
+			"args": [
+				"${file}",
+				"-o",
+				"${workspaceFolder}/bin/${fileBasenameNoExtension}.exe",
+				"-I",
+				"${workspaceFolder}/inc/",
+				"-std=c17",
+				"-W",
+				"-Wall",
+				"-Wmaybe-uninitialized",
+				"-O",
+				"-ggdb"
+			],
+			"problemMatcher": "$gcc"
+		},
+		{
+			"label": "C++ Compilation (mingw64 on Windows)",
+			"type": "shell",
+			"command": "g++.exe",
+			"args": [
+				"${file}",
+				"-o",
+				"${workspaceFolder}/bin/${fileBasenameNoExtension}.exe",
+				"-I",
+				"${workspaceFolder}/inc/",
+				"-std=c++23",
+				"-W",
+				"-Wall",
+				"-ggdb"
+			],
+			"problemMatcher": "$gcc"
+		},
+		{
+			"label": "C++ Compilation (MSVC on Windows)",
+			"type": "shell",
+			"command": "${workspaceFolder}\\.vscode\\msvcc.ps1",
+			"args": [
+				"${file}",
+				"${workspaceFolder}",
+				"${fileBasenameNoExtension}"
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Intelligent Compilation",
+			"type": "shell",
+			"command": "${workspaceFolder}/.vscode/compile.sh",
+			"args": [
+				"${file}",
+				"${fileBasenameNoExtension}",
+				"${fileExtname}",
+				"${workspaceFolder}"
+			],
+			"problemMatcher": "$gcc"
+		},
+		{
+			"label": "C# Compilation (Dotnet 7 on Windows)",
+			"type": "process",
+			"command": "${workspaceFolder}\\.vscode\\sfc.exe",
+			"args": [
+				"${file}",
+				"--class",
+				"Project.Program"
+			],
+			"problemMatcher": "$msCompile"
+		}
+	]
+}
