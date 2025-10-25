@@ -1,9 +1,4 @@
 {
-	"editor.fontFamily": "'FiraCode Nerd Font', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-	"editor.fontLigatures": true,
-	"editor.fontSize": 16,
-	"editor.insertSpaces": false,
-	"editor.formatOnType": true,
 	"files.associations": {
 		"*.h": "c",
 		"*.c": "c",
@@ -113,6 +108,5 @@
 		"stack": "cpp",
 		"stdfloat": "cpp",
 		"text_encoding": "cpp"
-	},
-	"dotnet.defaultSolution": "bulk-code.sln",
+	}
 }
