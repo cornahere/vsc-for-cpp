@@ -10,12 +10,12 @@
 - (Windows MSVC) 安装 Visual Studio 2022 Community 的 MSVC 组件。
 
 ### Linux
-- 安装 GCC 15.2.1 与 GDB。
-- 确保 sha256sum 可用。
+- 在 Arch Linux 上安装 GCC 15.2.1 与 GDB。
+- 确保 cksum 可用。
 
 ## 结构说明
 
 源代码请置于 `src` 文件夹中。  
 公共头文件请置于 `inc` 文件夹中。  
-源代码编译结果将会输出到 `bin` 文件夹中。Linux 下编译结果默认带 .run 后缀名。  
+源代码编译结果将会输出到 `bin` 文件夹中。Linux 下编译结果默认带 .out 后缀名。  
 程序默认目录位于 `tmp` 文件夹中。若要进行相对路径文件操作，确保 `.` 位于 `tmp` 文件夹。  

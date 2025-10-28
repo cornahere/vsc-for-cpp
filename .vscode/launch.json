@@ -2,10 +2,10 @@
 	"configurations": [
 		{
 			"name": "Intelligent Debug for Linux",
-			"preLaunchTask": "Intelligent Compilation",
+			"preLaunchTask": "On-Demand build",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/bin/${fileBasenameNoExtension}.run",
+			"program": "${workspaceFolder}/bin/${fileBasenameNoExtension}.out",
 			"args": [],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}/tmp/",
@@ -21,7 +21,7 @@
 		},
 		{
 			"name": "C (mingw64 on Windows)",
-			"preLaunchTask": "C Compilation (mingw64 on Windows)",
+			"preLaunchTask": "MinGW-w64 GCC",
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/bin/${fileBasenameNoExtension}.exe",
@@ -33,7 +33,7 @@
 		},
 		{
 			"name": "C++ (mingw64 on Windows)",
-			"preLaunchTask": "C++ Compilation (mingw64 on Windows)",
+			"preLaunchTask": "MinGW-w64 G++",
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/bin/${fileBasenameNoExtension}.exe",
@@ -45,7 +45,7 @@
 		},
 		{
 			"name": "C++ (MSVC on Windows)",
-			"preLaunchTask": "C++ Compilation (MSVC on Windows)",
+			"preLaunchTask": "MSVC CL.EXE",
 			"type": "cppvsdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/bin/${fileBasenameNoExtension}.exe",

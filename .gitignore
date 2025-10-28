@@ -1,5 +1,5 @@
 obj/
 *.obj
 *.pdb
-.vscode/sha256sum.log
+.vscode/cache.log
 temporary.csproj

@@ -2,7 +2,7 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "C Compilation (mingw64 on Windows)",
+			"label": "MinGW-w64 GCC",
 			"type": "shell",
 			"command": "gcc.exe",
 			"args": [
@@ -21,7 +21,7 @@
 			"problemMatcher": "$gcc"
 		},
 		{
-			"label": "C++ Compilation (mingw64 on Windows)",
+			"label": "MinGW-w64 G++",
 			"type": "shell",
 			"command": "g++.exe",
 			"args": [
@@ -38,7 +38,7 @@
 			"problemMatcher": "$gcc"
 		},
 		{
-			"label": "C++ Compilation (MSVC on Windows)",
+			"label": "MSVC CL.EXE",
 			"type": "shell",
 			"command": "${workspaceFolder}\\.vscode\\msvcc.ps1",
 			"args": [
@@ -49,7 +49,7 @@
 			"problemMatcher": "$msCompile"
 		},
 		{
-			"label": "Intelligent Compilation",
+			"label": "On-Demand build",
 			"type": "shell",
 			"command": "${workspaceFolder}/.vscode/compile.sh",
 			"args": [
@@ -59,17 +59,6 @@
 				"${workspaceFolder}"
 			],
 			"problemMatcher": "$gcc"
-		},
-		{
-			"label": "C# Compilation (Dotnet 7 on Windows)",
-			"type": "process",
-			"command": "${workspaceFolder}\\.vscode\\sfc.exe",
-			"args": [
-				"${file}",
-				"--class",
-				"Project.Program"
-			],
-			"problemMatcher": "$msCompile"
 		}
 	]
 }

@@ -1,73 +1,96 @@
-#!/bin/sh
-
+#!/usr/bin/bash
 # compile.sh by Corna
-# Create time: 2021/11/09 21:38
-# Compile C/C++ sources intelligently
-# Coding: UTF-8
+# -*- coding: UTF-8 -*-
 
-# Process arguments
+# parameters
 File="$1"
 NoExtname="$2"
 Extname="$3"
 Workspace="$4"
 
-PastShasum=`grep "$File" "$Workspace/.vscode/sha256sum.log"`
-NowShasum=`sha256sum "$File"`
+# constats
+RED="\e[1;31m"	# Red
+GRE="\e[1;32m"	# Green
+BLU="\e[1;34m"	# Blue
+RST="\e[0m"		# Reset color
 
-function extract() {
-	printf $1
+log_path="$Workspace/.vscode/cache.log"
+bin_path="$Workspace/bin/$NoExtname.out"
+inc_path="$Workspace/inc"
+src_path="$File"
+
+check_hash() {
+	log=($(grep "$src_path" "$log_path"))
+	# log or binary not found -> return directly
+	if [ $? -ne 0 ] || [ ! -e "$bin_path" ]
+	then
+		return 1
+	fi
+
+	bin_hash="${log[0]}"
+	src_hash="${log[1]}"
+
+	now_bin_hash_arr=($(cksum "$bin_path"))
+	now_src_hash_arr=($(cksum "$src_path"))
+	now_bin_hash=${now_bin_hash_arr[0]}
+	now_src_hash=${now_src_hash_arr[0]}
+	
+	[ "$src_hash" = "$now_src_hash" ] && [ "$bin_hash" = "$now_bin_hash" ]
 }
 
-if [ "$PastShasum" != "$NowShasum" ]
-then
-
-#	An ancient way to test if file is compiled successful.
-#	It has been discarded now.
-#
-#	if [ "$PastShasum" != "" ]
-#	then
-#		LastShasum="`sha256sum "$Workspace/bin/$NoExtname.run"`"
-#	fi
-
+get_compiler() {
 	case $Extname in
-	".cpp")
-		if ! g++ "$File" -o "$Workspace/bin/$NoExtname.run" -I "$Workspace/inc/" -D _DEBUG_=1 -std=c++23 -W -Wall -ggdb -lm -Wmaybe-uninitialized
-		then
-			echo -e "\033[31;1mError\033[0m: \033[31;1mFailed to compile.\033[0m"
-			exit 1
-		fi 
-		;;
-	".c")
-		if ! gcc "$File" -o "$Workspace/bin/$NoExtname.run" -I "$Workspace/inc/" -D _DEBUG_=1 -std=c17 -W -Wall -ggdb -lm -Wmaybe-uninitialized
-		then
-			echo -e "\033[31;1mError\033[0m: \033[31;1mFailed to compile.\033[0m"
-			exit 1
-		fi
-		;;
+	".cpp")	printf "g++";;
+	".c")	printf "gcc";;
 	*)
-		echo -e "\033[31;1mError\033[0m: Unknown file type."
+		echo -e "${RED}[ERR] Unknown file type.${RST}" >&2
 		exit 1
 		;;
 	esac
+}
 
-#	An ancient way to test if file is compiled successful.
-#	It has been discarded now.
-#
-#	if ! test -e "$Workspace/bin/$NoExtname.run" || [ "$PastShasum" != "" -a "`sha256sum "$Workspace/bin/$NoExtname.run"`" == "$LastShasum" ]
-#	then
-#		echo -e "$0: \033[1;31mError: Failed to compile.\033[0m\nIf you think that you program is right, try to delete $NoExtname.run if it is exist, delete the hash info in sha256sum.log and try compiling again.\nExiting. . ."
-#		exit 1
-#	fi
+get_argument() {
+	printf ' -D_DEBUG_=1 -W -Wall -ggdb -lm -O1 -Wmaybe-uninitialized'
+	case $Extname in
+	".cpp")	printf " -std=c++23";;
+	".c")	printf " -std=c23";;
+	esac
+}
 
-	# Add sha256sum info into logs.
-	if [ "`grep "$File" "$Workspace/.vscode/sha256sum.log"`" = "" ]
+write_hash() {
+	now_bin_hash_arr=($(cksum "$bin_path"))
+	now_src_hash_arr=($(cksum "$src_path"))
+	now_bin_hash=${now_bin_hash_arr[0]}
+	now_src_hash=${now_src_hash_arr[0]}
+	
+	grep "$src_path" "$log_path" >/dev/null
+	if [ $? -ne 0 ]
 	then
-		echo "`sha256sum "$File"`" >>"$Workspace/.vscode/sha256sum.log"
-	else
-		sed -i "s/`extract $PastShasum`/`extract $NowShasum`/" "$Workspace/.vscode/sha256sum.log"
+		echo "$now_bin_hash $now_src_hash $src_path" >>"$log_path"
+		return
 	fi
 
-	echo -e "$0: \033[1;32mCompile successfully. Start to debug...\033[0m"
-else
-	echo -e "$0: \033[1;32mSource has already been compiled. Start to debug compiled file...\033[0m"
-fi
+	sed -i "s/$bin_hash/$now_bin_hash/" "$log_path"
+	sed -i "s/$src_hash/$now_src_hash/" "$log_path"
+}
+
+main() {
+	if check_hash
+	then
+		echo -e "${BLU}Source has already been built. Debug the binary directly.${RST}"
+		exit
+	fi
+
+	get_compiler > /dev/null
+
+	if ! $(get_compiler) "$src_path" -I "$inc_path" -o "$bin_path" $(get_argument)
+	then
+		echo -e "${RED}[ERR] Failed in building. Check the compilation log above for detail.${RST}"
+		exit 1
+	else
+		write_hash
+		echo -e "${GRE}Build succussfully.${RST}"
+	fi
+}
+
+main
