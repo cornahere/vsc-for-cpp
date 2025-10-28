@@ -1,5 +1,5 @@
 # Compile C++ source with MSVC toolchain via Developer Powershell.
-# Copyright (C) 2025 Corna. All rights reserved.
+# Copyright (C) 2025 Corna.
 
 param(
 	[string]$file,
