@@ -6,7 +6,7 @@
 ## 环境要求
 ### Windows
 
-- (Windows MinGW) 将 MinGW-w64 15.2.1 安装到 `C:\Program Files\mingw64`，并加入到环境变量。
+- (Windows MinGW) 将 MinGW-w64 15.2.0 安装到 `C:\Program Files\mingw64`，并加入到环境变量。
 - (Windows MSVC) 安装 Visual Studio 2022 Community 的 MSVC 组件。
 
 ### Linux
