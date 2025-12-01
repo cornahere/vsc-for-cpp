@@ -20,8 +20,8 @@
 			]
 		},
 		{
-			"name": "C (mingw64 on Windows)",
-			"preLaunchTask": "MinGW-w64 GCC",
+			"name": "Intelligent Debug for Windows",
+			"preLaunchTask": "On-Demand build (Windows)",
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/bin/${fileBasenameNoExtension}.exe",
@@ -29,22 +29,17 @@
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}/tmp/",
 			"environment": [],
-			"MIMode": "gdb"
+			"MIMode": "gdb",
+			"setupCommands": [
+				{
+					"description": "为 gdb 启用整齐打印",
+					"text": "-enable-pretty-printing",
+					"ignoreFailures": true
+				}
+			]
 		},
 		{
-			"name": "C++ (mingw64 on Windows)",
-			"preLaunchTask": "MinGW-w64 G++",
-			"type": "cppdbg",
-			"request": "launch",
-			"program": "${workspaceFolder}/bin/${fileBasenameNoExtension}.exe",
-			"args": [],
-			"stopAtEntry": false,
-			"cwd": "${workspaceFolder}/tmp/",
-			"environment": [],
-			"MIMode": "gdb"
-		},
-		{
-			"name": "C++ (MSVC on Windows)",
+			"name": "MSVC C++",
 			"preLaunchTask": "MSVC CL.EXE",
 			"type": "cppvsdbg",
 			"request": "launch",

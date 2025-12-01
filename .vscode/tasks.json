@@ -2,42 +2,6 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "MinGW-w64 GCC",
-			"type": "shell",
-			"command": "gcc.exe",
-			"args": [
-				"${file}",
-				"-o",
-				"${workspaceFolder}/bin/${fileBasenameNoExtension}.exe",
-				"-I",
-				"${workspaceFolder}/inc/",
-				"-std=c17",
-				"-W",
-				"-Wall",
-				"-Wmaybe-uninitialized",
-				"-O",
-				"-ggdb"
-			],
-			"problemMatcher": "$gcc"
-		},
-		{
-			"label": "MinGW-w64 G++",
-			"type": "shell",
-			"command": "g++.exe",
-			"args": [
-				"${file}",
-				"-o",
-				"${workspaceFolder}/bin/${fileBasenameNoExtension}.exe",
-				"-I",
-				"${workspaceFolder}/inc/",
-				"-std=c++23",
-				"-W",
-				"-Wall",
-				"-ggdb"
-			],
-			"problemMatcher": "$gcc"
-		},
-		{
 			"label": "MSVC CL.EXE",
 			"type": "shell",
 			"command": "${workspaceFolder}\\.vscode\\msvcc.ps1",
@@ -52,6 +16,18 @@
 			"label": "On-Demand build",
 			"type": "shell",
 			"command": "${workspaceFolder}/.vscode/compile.sh",
+			"args": [
+				"${file}",
+				"${fileBasenameNoExtension}",
+				"${fileExtname}",
+				"${workspaceFolder}"
+			],
+			"problemMatcher": "$gcc"
+		},
+		{
+			"label": "On-Demand build (Windows)",
+			"type": "shell",
+			"command": "${workspaceFolder}/.vscode/compile.ps1",
 			"args": [
 				"${file}",
 				"${fileBasenameNoExtension}",
