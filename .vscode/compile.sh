@@ -50,7 +50,7 @@ get_compiler() {
 }
 
 get_argument() {
-	printf ' -D_DEBUG_=1 -W -Wall -ggdb -lm -O1 -Wmaybe-uninitialized'
+	printf ' -D_DEBUG_=1 -W -Wall -ggdb -lm -O0'
 	case $Extname in
 	".cpp")	printf " -std=c++23";;
 	".c")	printf " -std=c23";;
